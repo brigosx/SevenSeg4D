@@ -2,19 +2,27 @@
 Arduino 7 Segment Library
 
 <h3>Overview</h3>
-<pThis library is based on a the great tutorial below which I found in YouTube by Kristian Blåsol. I 've tried many Arduino libraries regarding seven segment display and none of them seem to work or was to complicated to play with more than 1 shift registers (HC595) and 1 7segment LED display with 4 digits.</p>
+<p>This library is based on a great tutorial I found in YouTube made by Kristian Blåsol regardiing driving a 4 digit 7segment LED display screen with 2 HC595 shift registers.</p>
 
-<p>The code and logic of Kristian was very simple and understandable so the SevenSeg4D class was borned in order to make the things a bit simpler.</p>
+<p>I 've tried many Arduino libraries regarding seven segment display and none of them seem to work, or was to complicated to play with more than 1 shift registers (HC595) and 1 7segment LED display with 4 digits.</p>
+
+<p>The code and logic of <a href="http://duinos.net/files/2015/four_digit_595_1234.ino">Kristian Blåsol</a> was very simple and understandable so the SevenSeg4D class was borned in order to make the things a bit simpler.</p>
 
 <p>The class offers 2 public methods:
 
 <code>void shiftOutMsg(char *msg);</code><br>
 <code>void shiftOutChar(unsigned char c, byte digitpos);</code></p>
 
-<p>The first one can take a null terminated buffer of characters and displays them on the 4 digits LED screen and the second one can display only one at the digit position of our choise. Although the library has not been tested with more than 2 shift registers and a 4 digit 7 segment LED screen it could work with no problems, as long as you respect the wiring as per the video below:</p>
+<p>The first one takes a null terminated buffer of characters and displays them on the 4 digits LED screen and the second one can display only one character at the digit position of our choise. Although the library has not been tested with more than 2 shift registers and a 4 digit 7 segment LED screen it could work with no problems, as long as you respect the wiring as per the video below:</p>
 
 https://www.youtube.com/watch?v=ZGzbAd-Aixc&list=LLwUpbzkpNqzFDXJVHNlYP9w
 
 <p>To initiate the class just apply the 3 Arduino pins (data, clock and latch pin) at which you connect your circuit and if you use common cathode or common anode for your 7 segment screen, like the example below:</p>
 
 <code>SevenSeg4D disp(dataPin, clockPin, latchPin, Cathode);</code>
+
+<p>The default constructor uses dataPin = 3, clockPin = 4, latchPin = 2 and an Anode common connection to the 7segment LED display.</p>
+
+<p>In the examples you can find the Counter4D.ino which has been uploaded and tested successfully on an <b>Arduino Uno</b> board. But other boards (like Arduino Mega, Nano or NodeMCU) can be used either.</p>
+
+<p>Currently the library supports English letters from A-Z, a-z and all numbers 0-9. However, more symbols can be added at the <code>sevensegset</code> array which is defined in the corresponding header file.</p>
