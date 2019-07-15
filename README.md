@@ -4,7 +4,7 @@ Arduino 7 Segment Library
 <h3>Overview</h3>
 <p>This library is based on a great tutorial I found in YouTube made by Kristian Blåsol regardiing driving a 4 digit 7segment LED display screen with 2 <b>HC595</b> shift registers.</p>
 
-<p>I 've tried many Arduino libraries regarding seven segment display and none of them seem to work, or was to complicated to play with more than 1 shift registers (HC595) and 1 7segment LED display with 4 digits.</p>
+<p>I 've tried many Arduino libraries regarding seven segment display and none of them seem to work, or was to complicated for me to play with more than 1 shift registers (HC595) and 1 7segment LED display with 4 digits.</p>
 
 <p>The code and logic of <a href="http://duinos.net/files/2015/four_digit_595_1234.ino">Kristian Blåsol</a> was very simple and understandable so the SevenSeg4D class was borned in order to make the things a bit simpler.</p>
 
