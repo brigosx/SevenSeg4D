@@ -23,6 +23,6 @@ https://www.youtube.com/watch?v=ZGzbAd-Aixc&list=LLwUpbzkpNqzFDXJVHNlYP9w
 
 <p>The default constructor uses dataPin = 3, clockPin = 4, latchPin = 2 and an Anode common connection to the 7segment LED display.</p>
 
-<p>In the examples you can find the <a href="https://youtu.be/4xm0x6XxDis">Counter4D sketch</a> which use the SevenSeg4D library and has been tested successfully on an <b>Arduino Uno</b> board. But other boards (like Arduino Mega, Nano or NodeMCU) can be used either.</p>
+<p>In the examples you can find the <a href="https://youtu.be/4xm0x6XxDis" title="Counter4D project on YouTube">Counter4D sketch</a> which use the SevenSeg4D library and has been tested successfully on an <b>Arduino Uno</b> board. But other boards (like Arduino Mega, Nano or NodeMCU) can be used either.</p>
 
 <p>Currently the library supports English letters from A-Z, a-z and all numbers 0-9. However, more symbols can be added at the <code>sevensegset</code> array which is defined in the corresponding header file.</p>
