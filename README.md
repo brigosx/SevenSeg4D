@@ -27,4 +27,4 @@ https://www.youtube.com/watch?v=ZGzbAd-Aixc&list=LLwUpbzkpNqzFDXJVHNlYP9w
 
 <p>In the examples you can find the <a href="https://youtu.be/4xm0x6XxDis" title="Counter4D project on YouTube">Counter4D sketch</a> which use the SevenSeg4D library and has been tested successfully on an <b>Arduino Uno</b> board. But other boards (like Arduino Mega, Nano or NodeMCU) can be used either.</p>
 
-<p>Currently the library supports English letters from A-Z, a-z, all numbers 0-9 and a few symbols like <b>(,),+,/<b> etc. However, more symbols can be added at the <code>sevensegset</code> array which is defined in the corresponding header file.</p>
+<p>Currently the library supports English letters from A-Z, a-z, all numbers 0-9 and a few symbols like <b>(,),+,/</b> etc. However, more symbols can be added at the <code>sevensegset</code> array which is defined in the corresponding header file.</p>
