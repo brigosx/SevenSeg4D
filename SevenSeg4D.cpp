@@ -96,7 +96,7 @@ void SevenSeg4D::shiftOutChar(unsigned char c, byte digitpos)
 {
     byte sevseg = getSevenSegChar(c);
 
-    unsigned long value = 0;
+    unsigned int value = 0;
     // 1st register MSB = D1, 2nd register LSB = D2 etc
     bitSet(value, 6 + digitpos);
 
