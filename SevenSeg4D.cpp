@@ -27,6 +27,7 @@
 
 #include "Arduino.h"
 #include "SevenSeg4D.h"
+#include "SPI.h"
 
 SevenSeg4D::SevenSeg4D() {
     init(3, 4, 2, Anode);
@@ -40,7 +41,17 @@ SevenSeg4D::SevenSeg4D(int dataPin, int clockPin, int latchPin, CommonLedConnect
     init(dataPin, clockPin, latchPin, connection);
 }
 
+SevenSeg4D::SevenSeg4D(int latchPin) {
+    initSPI(latchPin, Anode);
+}
+
+SevenSeg4D::SevenSeg4D(int latchPin, CommonLedConnection connection) {
+ initSPI(latchPin, connection);
+}
+
 void SevenSeg4D::init(int dataPin, int clockPin, int latchPin, CommonLedConnection connection) {
+    _spi_logic = false;
+    
     _dataPin = dataPin;
     _clockPin = clockPin;
     _latchPin = latchPin;
@@ -49,6 +60,18 @@ void SevenSeg4D::init(int dataPin, int clockPin, int latchPin, CommonLedConnecti
     pinMode(_dataPin, OUTPUT);
     pinMode(_clockPin, OUTPUT);
     pinMode(_latchPin, OUTPUT);
+}
+
+void SevenSeg4D::initSPI(int latchPin, CommonLedConnection connection) {
+    _spi_logic = true;
+
+    _latchPin = latchPin;
+    _connection = connection;
+    
+    pinMode(_latchPin, OUTPUT);
+    
+    SPI.begin();
+    SPI.setBitOrder(MSBFIRST);
 }
 
 void SevenSeg4D::shiftOutMsg(char *msg) {
@@ -71,10 +94,20 @@ void SevenSeg4D::shiftOutChar(unsigned char c, byte digitpos) {
 
     digitalWrite(_latchPin, LOW);
 
-    // Clear shift registers
-    shiftOut(_dataPin, _clockPin, MSBFIRST, (value + 64) >> 8);
-    // Pass data to shift registers
-    shiftOut(_dataPin, _clockPin, MSBFIRST, value + sevseg);
+    if (!_spi_logic) {
+      // Clear shift registers
+      shiftOut(_dataPin, _clockPin, MSBFIRST, (value + 64) >> 8);
+      // Pass data to shift registers
+      shiftOut(_dataPin, _clockPin, MSBFIRST, value + sevseg);
+      
+  }
+  else {
+      // Clear shift registers
+      SPI.transfer((value + 64) >> 8);
+      // Pass data to shift registers
+      SPI.transfer(value + sevseg);
+      
+  }
 
     digitalWrite(_latchPin, HIGH);
 }
