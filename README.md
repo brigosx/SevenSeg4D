@@ -21,7 +21,7 @@ https://www.youtube.com/watch?v=ZGzbAd-Aixc&list=LLwUpbzkpNqzFDXJVHNlYP9w
 <code>SevenSeg4D disp(dataPin, clockPin, latchPin, Cathode);</code>
 <br><p>or using the <b>SPI</b> contstructror:</p>
 <code>SevenSeg4D disp(latchPin, Cathode);</code>
-<br><p>where you define only the latch PIN. The data and clock PINs are defined automatically as per the <a href="https://www.arduino.cc/en/Reference/SPI">SPI Arduino</a> reference</p>
+<br><p>where you define only the latch PIN. The data and clock PINs are defined automatically as per the <a href="https://www.arduino.cc/en/Reference/SPI">SPI Arduino reference</a></p>
 
 <p>The default constructor uses dataPin = 3, clockPin = 4, latchPin = 2 and an Anode common connection to the 7segment LED display.</p>
 
