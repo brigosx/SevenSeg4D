@@ -51,10 +51,10 @@ class SevenSeg4D {
         bool _spi_logic;
 
         void init(int dataPin, int clockPin, int latchPin, CommonLedConnection connection);
-        
         void initSPI(int latchPin, CommonLedConnection connection);
         
-    byte getSevenSegChar(unsigned char c);
+        byte getSevenSegChar(unsigned char c);
+	void softDelay(long delayTime);
 
     public:
         SevenSeg4D();

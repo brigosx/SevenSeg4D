@@ -29,27 +29,33 @@
 #include "SevenSeg4D.h"
 #include "SPI.h"
 
-SevenSeg4D::SevenSeg4D() {
+SevenSeg4D::SevenSeg4D() 
+{
     init(3, 4, 2, Anode);
 }
 
-SevenSeg4D::SevenSeg4D(int dataPin, int clockPin, int latchPin) {
+SevenSeg4D::SevenSeg4D(int dataPin, int clockPin, int latchPin) 
+{
     init(dataPin, clockPin, latchPin, Anode);
 }
 
-SevenSeg4D::SevenSeg4D(int dataPin, int clockPin, int latchPin, CommonLedConnection connection) {
+SevenSeg4D::SevenSeg4D(int dataPin, int clockPin, int latchPin, CommonLedConnection connection) 
+{
     init(dataPin, clockPin, latchPin, connection);
 }
 
-SevenSeg4D::SevenSeg4D(int latchPin) {
+SevenSeg4D::SevenSeg4D(int latchPin) 
+{
     initSPI(latchPin, Anode);
 }
 
-SevenSeg4D::SevenSeg4D(int latchPin, CommonLedConnection connection) {
+SevenSeg4D::SevenSeg4D(int latchPin, CommonLedConnection connection) 
+{
  initSPI(latchPin, connection);
 }
 
-void SevenSeg4D::init(int dataPin, int clockPin, int latchPin, CommonLedConnection connection) {
+void SevenSeg4D::init(int dataPin, int clockPin, int latchPin, CommonLedConnection connection) 
+{
     _spi_logic = false;
     
     _dataPin = dataPin;
@@ -62,7 +68,8 @@ void SevenSeg4D::init(int dataPin, int clockPin, int latchPin, CommonLedConnecti
     pinMode(_latchPin, OUTPUT);
 }
 
-void SevenSeg4D::initSPI(int latchPin, CommonLedConnection connection) {
+void SevenSeg4D::initSPI(int latchPin, CommonLedConnection connection) 
+{
     _spi_logic = true;
 
     _latchPin = latchPin;
@@ -74,18 +81,19 @@ void SevenSeg4D::initSPI(int latchPin, CommonLedConnection connection) {
     SPI.setBitOrder(MSBFIRST);
 }
 
-void SevenSeg4D::shiftOutMsg(char *msg) {
+void SevenSeg4D::shiftOutMsg(char *msg) 
+{
     // The message length: IMPORTANT ! The message wil be displayed according the number of shift registers and display digits
     int len = strlen(msg);
 
     for (int i = 0; i < len; i++)
     {
         shiftOutChar(*msg++, i + 1);
-        delay(1);
     }
 }
 
-void SevenSeg4D::shiftOutChar(unsigned char c, byte digitpos) {
+void SevenSeg4D::shiftOutChar(unsigned char c, byte digitpos) 
+{
     byte sevseg = getSevenSegChar(c);
 
     unsigned long value = 0;
@@ -110,9 +118,11 @@ void SevenSeg4D::shiftOutChar(unsigned char c, byte digitpos) {
   }
 
     digitalWrite(_latchPin, HIGH);
+    softDelay(1);
 }
 
-byte SevenSeg4D::getSevenSegChar(unsigned char c) {
+byte SevenSeg4D::getSevenSegChar(unsigned char c) 
+{
     byte result = 0;
 
     // First get the 7segment binary code
@@ -132,4 +142,14 @@ byte SevenSeg4D::getSevenSegChar(unsigned char c) {
     }
 
     return result;
+}
+
+void SevenSeg4D::softDelay(long delayTime)
+{
+    unsigned long tms = millis() + delayTime;
+
+    while (millis() < tms) 
+    {
+        yield();
+    }
 }
