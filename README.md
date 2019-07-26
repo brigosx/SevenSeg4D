@@ -18,11 +18,13 @@ Arduino 7segment 4 digits display Library
 https://www.youtube.com/watch?v=ZGzbAd-Aixc&list=LLwUpbzkpNqzFDXJVHNlYP9w
 
 <p>To initiate the class just apply the 3 Arduino pins (data, clock and latch pin) at which you connect your circuit and if you use common cathode or common anode for your 7 segment screen, like the example below:</p>
-
 <code>SevenSeg4D disp(dataPin, clockPin, latchPin, Cathode);</code>
+<br><p>or using the <b>SPI</b> contstructror:</p>
+<code>SevenSeg4D disp(latchPin, Cathode);</code>
+<br><p>where you define only the latch PIN. The data and clock PINs are defined automatically as per the <a href="https://www.arduino.cc/en/Reference/SPI">SPI Arduino</a> reference</p>
 
 <p>The default constructor uses dataPin = 3, clockPin = 4, latchPin = 2 and an Anode common connection to the 7segment LED display.</p>
 
 <p>In the examples you can find the <a href="https://youtu.be/4xm0x6XxDis" title="Counter4D project on YouTube">Counter4D sketch</a> which use the SevenSeg4D library and has been tested successfully on an <b>Arduino Uno</b> board. But other boards (like Arduino Mega, Nano or NodeMCU) can be used either.</p>
 
-<p>Currently the library supports English letters from A-Z, a-z and all numbers 0-9. However, more symbols can be added at the <code>sevensegset</code> array which is defined in the corresponding header file.</p>
+<p>Currently the library supports English letters from A-Z, a-z, all numbers 0-9 and a few symbols like <b>(,),+,/<b> etc. However, more symbols can be added at the <code>sevensegset</code> array which is defined in the corresponding header file.</p>
