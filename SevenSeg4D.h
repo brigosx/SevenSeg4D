@@ -5,7 +5,7 @@
 //  Version : 1.0
 //  Notes   : Free library for commercial or not use.
 //          : It can display characters on a 4 digit 7segment LED
-//	    : display screen through 2 HC595 shift registers
+//	        : display screen through 2 HC595 shift registers
 //****************************************************************
 
 /*  
@@ -33,7 +33,8 @@
 
 const unsigned char sevensegset[][2] = {
     {' ', 0x00}, {'!', 0x86}, {'"', 0x22}, {'#', 0x7E}, {'$', 0x2D}, {'%', 0xD2}, {'&', 0x7B}, {'(', 0x39}, {')', 0x0F},
-    {'*', 0x63}, {'-', 0x40}, {':', 0x09}, {'/', 0x52}, {'<', 0x58}, {'>', 0x4C}, {'=', 0x48}, {'?', 0xD3}, {'@', 0x5F}, 
+    {'*', 0x63}, {'-', 0x40}, {':', 0x09}, {'/', 0x52}, {'<', 0x58}, {'>', 0x4C}, {'=', 0x48}, {'?', 0xD3}, {'@', 0x5F},
+    {'0', 0x3F}, {'1', 0x06}, {'2', 0x5B}, {'3', 0x4F}, {'4', 0x66}, {'5', 0x6D}, {'6', 0x7D}, {'7', 0x07}, {'8', 0x7F}, 
     {'9', 0x6F}, {'A', 0x77}, {'B', 0x7C}, {'C', 0x39}, {'D', 0x5E}, {'E', 0x79}, {'F', 0x71}, {'G', 0x3D}, {'H', 0x76}, 
     {'I', 0x30}, {'J', 0x1E}, {'K', 0x75}, {'L', 0x38}, {'M', 0x37}, {'N', 0x54}, {'O', 0x3F}, {'P', 0x73}, {'Q', 0x67}, 
     {'R', 0x50}, {'S', 0x6D}, {'T', 0x78}, {'U', 0x3E}, {'V', 0x1C}, {'W', 0x2A}, {'X', 0x76}, {'Y', 0x6E}, {'Z', 0x5B}, 
@@ -43,6 +44,7 @@ const unsigned char sevensegset[][2] = {
 };
 
 enum CommonLedConnection { Anode = 0, Cathode };
+enum ScrollDirection { Right2Left = 0, Left2Right };
 
 class SevenSeg4D {
     private:
@@ -54,8 +56,8 @@ class SevenSeg4D {
         void initSPI(int latchPin, CommonLedConnection connection);
         
         byte getSevenSegChar(unsigned char c);
-	void softDelay(long delayTime);
-
+        void softDelay(long delayTime);
+        
     public:
         SevenSeg4D();
         SevenSeg4D(int dataPin, int clockPin, int latchPin);
@@ -67,6 +69,8 @@ class SevenSeg4D {
 
         void shiftOutMsg(char *msg);
         void shiftOutChar(unsigned char c, byte digitpos);
+
+        void scrollMsg(char *msg, ScrollDirection direction, long delayTime);
 };
 
 #endif

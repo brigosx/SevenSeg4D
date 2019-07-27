@@ -5,7 +5,7 @@
 //  Version : 1.0
 //  Notes   : Free library for commercial or not use.
 //          : It can display characters on a 4 digit 7segment LED
-//	    : display screen through 2 HC595 shift registers
+//	        : display screen through 2 HC595 shift registers
 //****************************************************************
 
 /*  
@@ -51,7 +51,7 @@ SevenSeg4D::SevenSeg4D(int latchPin)
 
 SevenSeg4D::SevenSeg4D(int latchPin, CommonLedConnection connection) 
 {
- initSPI(latchPin, connection);
+    initSPI(latchPin, connection);
 }
 
 void SevenSeg4D::init(int dataPin, int clockPin, int latchPin, CommonLedConnection connection) 
@@ -92,7 +92,57 @@ void SevenSeg4D::shiftOutMsg(char *msg)
     }
 }
 
-void SevenSeg4D::shiftOutChar(unsigned char c, byte digitpos) 
+void SevenSeg4D::scrollMsg(char *msg, ScrollDirection direction, long delayTime)
+{
+    int len = strlen(msg);
+    if (len == 0) return;
+
+    char *tmp = new char[5];
+
+    if (direction == Left2Right) 
+    { 
+        for (int i = len - 1; i >= 0; i--)
+        {
+            sprintf(tmp, "%4s", " ");
+
+            for (int j = 0; j < 4; j++)
+            {
+                tmp[j] = msg[i + j];
+            }
+
+            unsigned long tms = millis() + delayTime;
+
+            while (millis() < tms)
+            {
+                shiftOutMsg(tmp);
+                yield();
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < len; i++)
+        {
+            sprintf(tmp, "%4s", " ");
+           
+            for (int j = 0; j < 4; j++)
+            {
+                if ((i + j) < len)
+                    tmp[j] = msg[i + j];
+            }
+            
+            unsigned long tms = millis() + delayTime;
+
+            while (millis() < tms)
+            {
+                shiftOutMsg(tmp);
+                yield();
+            }
+        }
+    }
+}
+
+void SevenSeg4D::shiftOutChar(unsigned char c, byte digitpos)
 {
     byte sevseg = getSevenSegChar(c);
 
@@ -102,20 +152,20 @@ void SevenSeg4D::shiftOutChar(unsigned char c, byte digitpos)
 
     digitalWrite(_latchPin, LOW);
 
-    if (!_spi_logic) {
+    if (!_spi_logic)
+    {
       // Clear shift registers
       shiftOut(_dataPin, _clockPin, MSBFIRST, (value + 64) >> 8);
       // Pass data to shift registers
-      shiftOut(_dataPin, _clockPin, MSBFIRST, value + sevseg);
-      
-  }
-  else {
-      // Clear shift registers
-      SPI.transfer((value + 64) >> 8);
-      // Pass data to shift registers
-      SPI.transfer(value + sevseg);
-      
-  }
+      shiftOut(_dataPin, _clockPin, MSBFIRST, value + sevseg);      
+    }
+    else
+    {
+        // Clear shift registers
+        SPI.transfer((value + 64) >> 8);
+        // Pass data to shift registers
+        SPI.transfer(value + sevseg);
+    }
 
     digitalWrite(_latchPin, HIGH);
     softDelay(1);
