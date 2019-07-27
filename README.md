@@ -1,4 +1,4 @@
-# SevenSeg4D
+﻿# SevenSeg4D
 Arduino 7segment 4 digits display Library
 
 <h3>Overview</h3>
@@ -11,8 +11,8 @@ Arduino 7segment 4 digits display Library
 <p>The class offers 3 public methods:
 
 <code>void shiftOutMsg(char *msg);</code><br>
-<code>void shiftOutChar(unsigned char c, byte digitpos);</code></p>
-<code>void scrollMsg(char *msg, ScrollDirection direction, long delayTime);</code>
+<code>void shiftOutChar(unsigned char c, byte digitpos);</code>
+<code>void scrollMsg(char *msg, ScrollDirection direction, long delayTime);</code></p>
 
 <p>The first one takes a null terminated buffer of characters and displays them on the 4 digits LED screen and the second one can display only one character at the digit position of our choise. Although the library has not been tested with more than 2 shift registers and a 4 digit 7 segment LED screen it could work with no problems, as long as you respect the wiring as per the video below:</p>
 
