@@ -22,7 +22,7 @@ SevenSeg4D disp(dataPin, clockPin, latchPin, Cathode);
 
 //D1 = 128, D2 = 256, D3 = 512, D4 = 1024
 void setup() {
-  buf = new char[4];
+  buf = new char[5];
   sprintf(buf, "%04d", counter);
 }
 
