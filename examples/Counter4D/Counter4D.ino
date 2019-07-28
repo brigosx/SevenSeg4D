@@ -18,7 +18,7 @@ int counter = 0;
 unsigned long last_out = 0;
 char* buf;
 
-SevenSeg4D disp(dataPin, clockPin, latchPin, Cathode);
+SevenSeg4D disp(dataPin, clockPin, latchPin, Anode);
 
 //D1 = 128, D2 = 256, D3 = 512, D4 = 1024
 void setup() {

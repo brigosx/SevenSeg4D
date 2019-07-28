@@ -185,7 +185,7 @@ byte SevenSeg4D::getSevenSegChar(unsigned char c)
         }
     }
 
-    if (_connection == Cathode)
+    if (_connection == Anode)
     {
         // Get the invertion of the code and clear the MSBit which will be used for light up digit 1
         result = (~result) ^ 0x80;
