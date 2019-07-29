@@ -57,12 +57,13 @@ SevenSeg4D::SevenSeg4D(int latchPin, CommonLedConnection connection)
 void SevenSeg4D::init(int dataPin, int clockPin, int latchPin, CommonLedConnection connection) 
 {
     _spi_logic = false;
-    
+    _allow_float = false;
+
     _dataPin = dataPin;
     _clockPin = clockPin;
     _latchPin = latchPin;
     _connection = connection;
-
+    
     pinMode(_dataPin, OUTPUT);
     pinMode(_clockPin, OUTPUT);
     pinMode(_latchPin, OUTPUT);
@@ -71,6 +72,7 @@ void SevenSeg4D::init(int dataPin, int clockPin, int latchPin, CommonLedConnecti
 void SevenSeg4D::initSPI(int latchPin, CommonLedConnection connection) 
 {
     _spi_logic = true;
+    _allow_float = false;
 
     _latchPin = latchPin;
     _connection = connection;
@@ -85,10 +87,15 @@ void SevenSeg4D::shiftOutMsg(char *msg)
 {
     // The message length: IMPORTANT ! The message wil be displayed according the number of shift registers and display digits
     int len = strlen(msg);
-
+    int idx = 1;
+    
     for (int i = 0; i < len; i++)
     {
-        shiftOutChar(*msg++, i + 1);
+        if (_allow_float && msg[i] == '.') {
+            shiftOutChar(msg[i], idx - 1);
+            continue;
+        }
+        shiftOutChar(msg[i], idx++);
     }
 }
 
@@ -147,8 +154,8 @@ void SevenSeg4D::shiftOutChar(unsigned char c, byte digitpos)
     byte sevseg = getSevenSegChar(c);
 
     unsigned int value = 0;
-    // 1st register MSB = D1, 2nd register LSB = D2 etc
-    bitSet(value, 6 + digitpos);
+    // 1st register MSB = D1, 2nd register LSB = D2 etc unless _allow_float is true
+    bitSet(value, (_allow_float ? 7 : 6) + digitpos);
 
     digitalWrite(_latchPin, LOW);
 
@@ -171,6 +178,11 @@ void SevenSeg4D::shiftOutChar(unsigned char c, byte digitpos)
     softDelay(1);
 }
 
+void SevenSeg4D::setAllowFloat(bool value)
+{
+    _allow_float = value;
+}
+
 byte SevenSeg4D::getSevenSegChar(unsigned char c) 
 {
     byte result = 0;
@@ -187,8 +199,11 @@ byte SevenSeg4D::getSevenSegChar(unsigned char c)
 
     if (_connection == Anode)
     {
-        // Get the invertion of the code and clear the MSBit which will be used for light up digit 1
-        result = (~result) ^ 0x80;
+        // Get the invertion of the code and clear the MSBit which will be used for light up digit 1 unless _allow_float is true
+        result = ~result;
+
+        if (!_allow_float)
+            result ^= 0x80;
     }
 
     return result;

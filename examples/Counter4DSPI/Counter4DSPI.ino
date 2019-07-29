@@ -1,17 +1,19 @@
-//**************************************************************//
+//****************************************************************
 //  Name    : Counter4DSPI
+
 //  Author  : Bill Rigas
 //  Date    : July 22 2019
 //  Version : 1.0
 //  Notes   : 4 digits counter up display example with the use
 //          : of the SevenSeg4D library and Arduino SPI
 //          
-            : display screen through 2 HC595 shift registers
-//****************************************************************
+//          : display screen through 2 HC595 shift registers
+//***************************************************************
 
 #include <SevenSeg4D.h>
 
 #define latchPin 10
+
 
 int counter = 0;
 unsigned long last_out = 0;

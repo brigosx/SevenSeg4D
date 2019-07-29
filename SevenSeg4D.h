@@ -40,17 +40,18 @@ const unsigned char sevensegset[][2] = {
     {'R', 0x50}, {'S', 0x6D}, {'T', 0x78}, {'U', 0x3E}, {'V', 0x1C}, {'W', 0x2A}, {'X', 0x76}, {'Y', 0x6E}, {'Z', 0x5B}, 
     {'a', 0x77}, {'b', 0x7C}, {'c', 0x58}, {'d', 0x5E}, {'e', 0x79}, {'f', 0x71}, {'g', 0x3D}, {'h', 0x74}, {'i', 0x10}, 
     {'j', 0x1E}, {'k', 0x75}, {'l', 0x38}, {'m', 0x37}, {'n', 0x54}, {'o', 0x5C}, {'p', 0x73}, {'q', 0x67}, {'r', 0x50}, 
-    {'s', 0x6D}, {'t', 0x78}, {'u', 0x3E}, {'v', 0x1C}, {'w', 0x2A}, {'x', 0x76}, {'y', 0x6E}, {'z', 0x5B}
+    {'s', 0x6D}, {'t', 0x78}, {'u', 0x3E}, {'v', 0x1C}, {'w', 0x2A}, {'x', 0x76}, {'y', 0x6E}, {'z', 0x5B}, {'.', 0x80}
 };
 
 enum CommonLedConnection { Anode = 0, Cathode };
 enum ScrollDirection { Right2Left = 0, Left2Right };
 
-class SevenSeg4D {
+class SevenSeg4D 
+{
     private:
         int _dataPin, _clockPin, _latchPin;
         CommonLedConnection _connection;
-        bool _spi_logic;
+        bool _spi_logic, _allow_float;
 
         void init(int dataPin, int clockPin, int latchPin, CommonLedConnection connection);
         void initSPI(int latchPin, CommonLedConnection connection);
@@ -71,6 +72,7 @@ class SevenSeg4D {
         void shiftOutChar(unsigned char c, byte digitpos);
 
         void scrollMsg(char *msg, ScrollDirection direction, long delayTime);
+        void setAllowFloat(bool value);
 };
 
 #endif
