@@ -23,7 +23,7 @@ https://www.youtube.com/watch?v=ZGzbAd-Aixc&list=LLwUpbzkpNqzFDXJVHNlYP9w
 
 https://www.youtube.com/watch?v=3K__viiOc5Q&feature=youtu.be
 
-<p>For those who like a different wiring (e.g. have all common digit (D1..D4) pins connected to the <b>2nd</b> shift register) the
+<p>For those who like a <b><i>different wiring</b></i> (e.g. have all common digit (D1..D4) pins connected to the <b>2nd</b> shift register) the
 <b>setAllowFloat</b> function does that. Just call it in the setup() function of your sketch with a <i>true</i> parameter as
 in the following example:<br>
 <code>void setup() {</code><br>
