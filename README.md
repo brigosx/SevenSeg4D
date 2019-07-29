@@ -8,19 +8,29 @@ Arduino 7segment 4 digits display Library
 
 <p>The <a href="http://duinos.net/files/2015/four_digit_595_1234.ino">code and logic</a> of <b>Kristian Blåsol</b> was very simple and understandable so the SevenSeg4D class was borned in order to make the things a bit simpler.</p>
 
-<p>The class offers 3 public methods:
+<p>The class offers 4 public methods:
 
 <code>void shiftOutMsg(char *msg);</code><br>
 <code>void shiftOutChar(unsigned char c, byte digitpos);</code><br>
-<code>void scrollMsg(char *msg, ScrollDirection direction, long delayTime);</code></p>
+<code>void scrollMsg(char *msg, ScrollDirection direction, long delayTime);</code><br>
+<code>void setAllowFloat(bool value);</code></p>
 
 <p>The first one takes a null terminated buffer of characters and displays them on the 4 digits LED screen and the second one can display only one character at the digit position of our choise. Although the library has not been tested with more than 2 shift registers and a 4 digit 7 segment LED screen it could work with no problems, as long as you respect the wiring as per the video below:</p>
 
 https://www.youtube.com/watch?v=ZGzbAd-Aixc&list=LLwUpbzkpNqzFDXJVHNlYP9w
 
-<p>The last one may scroll a message from <b>Left2Right</b> or <b>Right2Left</b> and at the given delay in milliseconds. An example was made at the video below:</p>
+<p>The scrollMsg function may scroll a message from <b>Left2Right</b> or <b>Right2Left</b> and at the given delay in milliseconds. An example was made at the video below:</p>
 
 https://www.youtube.com/watch?v=3K__viiOc5Q&feature=youtu.be
+
+<p>For those who like a different wiring (e.g. have all common digit (D1..D4) pins connected to the <b>2nd</b> shift register) the
+<b>setAllowFloat</b> function does that. Just call it in the setup() function of your sketch with a <i>true</i> parameter as
+in the following example:<br>
+<code>void setup() {</code><br>
+<code>  disp.setAllowFloat(true);</code><br>
+<code>  ...</code><br>
+<code>}</code><br>
+The <a href="https://www.youtube.com/watch?v=86c7Zus42AE">FloatNum4DSPI.ino</a> demonstrates that functionaliy.</p>
 
 <p>To initiate the class just apply the 3 Arduino pins (data, clock and latch pin) at which you connect your circuit and if you use common cathode or common anode for your 7 segment screen, like the example below:</p>
 <code>SevenSeg4D disp(dataPin, clockPin, latchPin, Cathode);</code>
