@@ -10,27 +10,31 @@
 
 #include <SevenSeg4D.h>
 
-#define latchPin 2
-#define dataPin 3
-#define clockPin 4
+const int latchPin = 2;
+const int dataPin = 3;
+const int clockPin = 4;
 
 int counter = 0;
 unsigned long last_out = 0;
 char* buf;
 
+// Initiate class with 3 PINs and for COMMON Anode wiring.
+// You may change the PIN numbers and the COMMON wiring according to your circuit (e.g. Cathode)
 SevenSeg4D disp(dataPin, clockPin, latchPin, Anode);
 
-//D1 = 128, D2 = 256, D3 = 512, D4 = 1024
+// Prepare output buffer for 4 digits plus the NULL terminated character
 void setup() {
   buf = new char[5];
   sprintf(buf, "%04d", counter);
 }
 
 void loop() {
+  // Display the message to the 7-segment LED display
   disp.shiftOutMsg(buf);
 
   unsigned long tms = millis();
 
+  // Refresh counter and output buffer every 500 milliseconds
   if ((tms - last_out) > 500) {
     last_out = tms;
     

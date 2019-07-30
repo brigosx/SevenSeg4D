@@ -1,11 +1,11 @@
-//**************************************************************//
+//****************************************************************
 //  Name    : SevenSeg4D library
 //  Author  : Bill Rigas
 //  Date    : July 15 2019
 //  Version : 1.0
 //  Notes   : Free library for commercial or not use.
 //          : It can display characters on a 4 digit 7segment LED
-//	        : display screen through 2 HC595 shift registers
+//	    : display screen through 2 HC595 shift registers
 //****************************************************************
 
 /*  
@@ -119,6 +119,7 @@ void SevenSeg4D::scrollMsg(char *msg, ScrollDirection direction, long delayTime)
 
             unsigned long tms = millis() + delayTime;
 
+            // softDelay cannot be used here
             while (millis() < tms)
             {
                 shiftOutMsg(tmp);
@@ -140,6 +141,7 @@ void SevenSeg4D::scrollMsg(char *msg, ScrollDirection direction, long delayTime)
             
             unsigned long tms = millis() + delayTime;
 
+            // softDelay cannot be used here
             while (millis() < tms)
             {
                 shiftOutMsg(tmp);
@@ -154,7 +156,8 @@ void SevenSeg4D::shiftOutChar(unsigned char c, byte digitpos)
     byte sevseg = getSevenSegChar(c);
 
     unsigned int value = 0;
-    // 1st register MSB = D1, 2nd register LSB = D2 etc unless _allow_float is true
+    // 1st register MSB = D1, 2nd register LSB = D2 etc 
+    // when _allow_float is true LSB of 2nd register applies to D1 etc
     bitSet(value, (_allow_float ? 7 : 6) + digitpos);
 
     digitalWrite(_latchPin, LOW);
@@ -178,6 +181,9 @@ void SevenSeg4D::shiftOutChar(unsigned char c, byte digitpos)
     softDelay(1);
 }
 
+// Transfers the commond ANODE / CATHODE logic to
+// the 2nd shift register entirely. Allows the appearance
+// of the DOT (.) pin of the 7-seg display if wired.
 void SevenSeg4D::setAllowFloat(bool value)
 {
     _allow_float = value;
@@ -209,6 +215,8 @@ byte SevenSeg4D::getSevenSegChar(unsigned char c)
     return result;
 }
 
+// Allows the execution of other APIs in the background
+// mostly used by ESP8266 boards
 void SevenSeg4D::softDelay(long delayTime)
 {
     unsigned long tms = millis() + delayTime;

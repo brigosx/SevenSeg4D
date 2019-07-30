@@ -1,11 +1,11 @@
-//**************************************************************//
+//****************************************************************
 //  Name    : SevenSeg4D library
 //  Author  : Bill Rigas
 //  Date    : July 15 2019
 //  Version : 1.0
 //  Notes   : Free library for commercial or not use.
 //          : It can display characters on a 4 digit 7segment LED
-//	        : display screen through 2 HC595 shift registers
+//	    : display screen through 2 HC595 shift registers
 //****************************************************************
 
 /*  

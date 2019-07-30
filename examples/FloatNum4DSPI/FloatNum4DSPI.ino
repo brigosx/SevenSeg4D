@@ -12,22 +12,26 @@
 
 #include <SevenSeg4D.h>
 
-#define latchPin 10
+const int latchPin = 10;
 
 int counter = 0;
 unsigned long last_out = 0;
 char *buf;
 
- // SPI contstructor
+// Initiates class with only one PIN (ST_CP or latch)
+// and uses the SPI Arduino library. The other 2 PINs (clock and data)
+// should be connected to the SPI pins of your board.
 SevenSeg4D disp(latchPin, Anode);
 
 void setup()
 {
     // This will allow the DOT (.) pin of the 7Seg display to also be displayed
-    // but requires different wirring.
+    // but requires different wirring (e.g. Q7 of the 1st shift register controls the DOT pin
+    // D1 of 7-segment display should be connected to Q0 of 2nd shift register etc).
     disp.setAllowFloat(true);
 
     buf = new char[5];
+    // Do not use sprintf for floating numbers.
     dtostrf(counter * 0.001f, 4, 3, buf);
 }
 

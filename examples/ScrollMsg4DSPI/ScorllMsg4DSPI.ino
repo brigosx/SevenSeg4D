@@ -12,26 +12,32 @@
 
 #include <SevenSeg4D.h>
 
-#define latchPin 10
+const int latchPin = 10;
 
+// The message to be scrolled
 const char *buf = "   Hello World!!!";
 unsigned long last_out = 0;
+// The initial scrolling direction
 ScrollDirection sdir = Left2Right;
 
- // SPI contstructor
+/ Initiates class with only one PIN (ST_CP or latch)
+// and uses the SPI Arduino library. The other 2 PINs (clock and data)
+// should be connected to the SPI pins of your board.
 SevenSeg4D disp(latchPin, Anode);
 
+// You may apply your initialization code in setup
 void setup()
 {    
 }
 
 void loop()
 {
+    // Scrolls the message with a delay of 250 milliseconds
     disp.scrollMsg(buf, sdir, 250);
 
     unsigned long tms = millis();
 
-    // Change direction every 5 sec
+    // Changes direction every 5 sec
     if ((tms - last_out) > 5000)
     {
         last_out = tms;

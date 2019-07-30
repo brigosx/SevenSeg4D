@@ -1,0 +1,20 @@
+# Syntax Coloring Map For SevenSeg4D Library
+
+# Datatypes (KEYWORD1)
+SevenSeg4D          KEYWORD1
+CommonLedConnection KEYWORD1
+ScrollDirection     KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+shiftOutMsg         KEYWORD2
+shiftOutChar        KEYWORD2
+scrollMsg           KEYWORD2
+setAllowFloat       KEYWORD2
+
+# Instances (KEYWORD2)
+
+# Constants (LITERAL1)
+Anode               LITERAL1
+Cathode             LITERAL1
+Right2Left          LITERAL1
+Left2Right          LITERAL1

@@ -12,16 +12,18 @@
 
 #include <SevenSeg4D.h>
 
-#define latchPin 10
-
+const int latchPin = 10
+;
 
 int counter = 0;
 unsigned long last_out = 0;
 char* buf;
 
+// Initiates class with only one PIN (ST_CP or latch)
+// and uses the SPI Arduino library. The other 2 PINs (clock and data)
+// should be connected to the SPI pins of your board.
 SevenSeg4D disp(latchPin, Anode);
 
-//D1 = 128, D2 = 256, D3 = 512, D4 = 1024
 void setup() {
   buf = new char[5];
   sprintf(buf, "%04d", counter);
