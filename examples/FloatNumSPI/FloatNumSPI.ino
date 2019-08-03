@@ -16,8 +16,8 @@ const int latchPin = 10;
 int counter = 0;
 unsigned long last_out = 0;
 
-// Output buffer for 4 digits plus the NULL terminated character
-char buf[5];
+// Output buffer for 4 digits plus the dot (.) character and the NULL terminated character
+char buf[6];
 
 // Initiates class with only one PIN (ST_CP or latch)
 // and uses the SPI Arduino library. The other 2 PINs (clock and data)
