@@ -6,7 +6,7 @@ Arduino 7segment 4 digits display Library
 
 <p>I 've tried many Arduino libraries regarding seven segment display and none of them seem to work, or was to complicated for me to play with more than 1 shift registers (HC595) and 1 7segment LED display with 4 digits.</p>
 
-<p>The <a href="http://duinos.net/files/2015/four_digit_595_1234.ino">code and logic</a> of <b>Kristian Blåsol</b> was very simple and understandable so the SevenSeg4D class was borned in order to make the things a bit simpler.</p>
+<p>The <a href="http://duinos.net/files/2015/four_digit_595_1234.ino">code and logic</a> of <b>Kristian Blåsol</b> was very simple and understandable so the SevenSeg4D class was borne in order to make the things a bit simpler.</p>
 
 <p>The class offers 4 public methods:
 
